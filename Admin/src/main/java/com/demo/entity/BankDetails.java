@@ -1,26 +1,37 @@
 package com.demo.entity;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="BANK_DETAILS")
+@Table(name="TBL_BankDetails")
 public class BankDetails {
 
 	@Id
+	@GeneratedValue
 	private int ACCOUNT_NO;
 	private String BANK_NAME;
 	private int IFSC_CODE;
 	private String CARD_TYPE;
 	
-	@OneToOne(cascade=CascadeType.ALL)
+	@ManyToOne
+	@JoinColumn(name="Cust_id")
 	private UserDetails usd;
 	
 	
+	@Override
+	public String toString() {
+		return "ACCOUNT_NO=" + ACCOUNT_NO + ", BANK_NAME=" + BANK_NAME + ", IFSC_CODE=" + IFSC_CODE
+				+ ", CARD_TYPE=" + CARD_TYPE;
+	}
 	public UserDetails getUsd() {
 		return usd;
 	}
