@@ -53,9 +53,7 @@
     <property name="entityManagerFactory" ref="myEmf" />
 </bean>
 
-<bean id="accountsDaoBean" class="com.javatpoint.AccountsDao">  
-        <property name="template" ref="jpaTemplateBean"></property>  
-     </bean>  
+
 <tx:annotation-driven />
  </beans>  
  
