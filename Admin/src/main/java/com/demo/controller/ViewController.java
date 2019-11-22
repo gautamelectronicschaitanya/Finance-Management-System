@@ -24,11 +24,6 @@ public class ViewController {
 	AdminRepository repo;
 
 
-//	@RequestMapping(path="vew.lti",method=RequestMethod.POST)
-//	public String view(){
-//		return  "login.jsp";
-//		}
-//	
 	@RequestMapping(path="register.lti",method=RequestMethod.POST)
 	public String login(HttpServletRequest request)
 	//public String login(AdminDetails details)
@@ -47,6 +42,7 @@ public class ViewController {
 		{
 			return "Fail.jsp";
 		}
+		
 	}
 	}
 

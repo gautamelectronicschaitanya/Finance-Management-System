@@ -37,10 +37,17 @@ ArrayList<UserDetails> uds = (ArrayList<UserDetails>)ar.FectAllUserDetails();
 <td><%out.println(ud.getEMAIL());%></td>
 <td><%out.println(ud.getPASSWORD());%></td>
 <td><%out.println(ud.getPHONE_NO());%></td>
-<td><a href="UPDATE.jsp">UPDATE</a>
+<td><a href="UPDATE.jsp">UPDATE</a></td>
+<td><a href="DELETE.jsp">DELETE</a></td>
+<td><input type="radio" name="auth" value="Active">Active<br></td>
+<td><input type="radio" name="auth value="deactive">Deactive<br></td>
 </tr>
 <%} %>
 </tr>
 </table>
+<%
+
+
+%>
 </body>
 </html>

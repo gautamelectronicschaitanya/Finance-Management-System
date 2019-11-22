@@ -12,6 +12,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.demo.entity.AdminDetails;
+import com.demo.entity.AuthDetails;
+//import com.demo.entity.AuthenticateAccount;
 import com.demo.entity.BankDetails;
 import com.demo.entity.UserDetails;
 import com.demo.repository.AdminRepository;
@@ -51,7 +53,7 @@ public class TestCase1 {
 	       System.out.println(ud.getEMAIL());
 	       System.out.println(ud.getPASSWORD());
 	       System.out.println(ud.getPHONE_NO());	 
-	    //   System.out.println(vr.fetchbyPk(ud.getUSERID()));
+	       System.out.println(vr.fetchbyPk(ud.getUSERID()));
 	}
 	@Test
 	public void addAdmin()
@@ -112,5 +114,66 @@ public class TestCase1 {
 	    	System.out.println(ud.getEMAIL());
 	    }
 	}
+	
+	@Test
+	public void Auth()
+	{
+		ApplicationContext ctx = new ClassPathXmlApplicationContext("prog-config.xml");
+		AdminRepository ar = ctx.getBean(AdminRepository.class);
+		AuthDetails ad = new AuthDetails();
+		ad.setId(10);
+		ad.setStatus("ACTIVE");
+		ar.add(ad);	
+	}
+	
+	@Test
+	public void TestAuth()
+	{
+		ApplicationContext ctx = new ClassPathXmlApplicationContext("prog-config.xml");
+		AdminRepository ar = ctx.getBean(AdminRepository.class);
+		AuthDetails ad = (AuthDetails)ar.fetchById(AuthDetails.class,10);
+		System.out.println(ad.getStatus());
+		
+	}
+	
+	@Test
+	public void TestAuth2()
+	{
+		ApplicationContext ctx = new ClassPathXmlApplicationContext("prog-config.xml");
+		AdminRepository ar = ctx.getBean(AdminRepository.class);
+		AuthDetails ad = (AuthDetails)ar.fetchById(AuthDetails.class,10);
+		ad.setStatus("fail");
+		ar.add(ad);
+		
+	}
+	
+	@Test
+	public void NewAdd()
+	{
+		ApplicationContext ctx = new ClassPathXmlApplicationContext("prog-config.xml");
+		AdminRepository vr = ctx.getBean(AdminRepository.class);
+		UserDetails ud = new UserDetails();
+		BankDetails bk = new BankDetails();
+		AuthDetails ad = new AuthDetails();
+		bk.setBANK_NAME("SBI");
+		bk.setCARD_TYPE("GOLD");
+		bk.setIFSC_CODE(5565);
+		ud.setNAME("popo");
+		ud.setUSERID(109);
+		ud.setEMAIL("Ar@k2.com");
+		ud.setPASSWORD("qwerty");
+		ud.setPHONE_NO(2451530);
+		ad.setUserDetails(ud);
+		ad.setId(101);
+		ad.setStatus("Active");
+		bk.setUsd(ud);
+		Set<BankDetails> bankd = new HashSet<BankDetails>();
+		bankd.add(bk);
+		ud.setDetails(bankd);
+		vr.add(ud);
+		vr.add(ad);
+	}
+	
+	
 
 }

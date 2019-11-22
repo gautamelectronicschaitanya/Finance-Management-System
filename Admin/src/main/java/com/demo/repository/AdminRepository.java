@@ -46,7 +46,6 @@ public class AdminRepository {
          return bk;
    }
    
-   
   @Transactional
    public AdminDetails fetchAll()
    {
@@ -66,6 +65,7 @@ public class AdminRepository {
 	 List<UserDetails> uds = q.getResultList();
 	  return uds;
   }
+ 
   
    
 }

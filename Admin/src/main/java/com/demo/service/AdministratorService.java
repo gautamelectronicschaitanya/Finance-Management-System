@@ -16,6 +16,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
 
 import com.demo.entity.AdminDetails;
+import com.demo.entity.AuthDetails;
 import com.demo.repository.AdminRepository;
 
 
@@ -27,7 +28,6 @@ AdminRepository adminrepo;
 	
 	public boolean LoginValidate(String adminName, String adminPassword)
 	{
-			
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("prog-config.xml");
 		AdminRepository ar = ctx.getBean(AdminRepository.class);
 		AdminDetails ad =(AdminDetails) ar.fetchAll();
@@ -39,6 +39,24 @@ AdminRepository adminrepo;
 		{
 			return false;
 		}		
+	}
+	
+	public String CheckStatus(int user_id)
+	{
+		ApplicationContext ctx = new ClassPathXmlApplicationContext("prog-config.xml");
+		AdminRepository ar = ctx.getBean(AdminRepository.class);
+		AuthDetails ad = (AuthDetails)ar.fetchById(AuthDetails.class,user_id);
+	    return ad.getStatus();
+	}
+	
+	public void UpDateStatus(int user_id,String status)
+	{
+		ApplicationContext ctx = new ClassPathXmlApplicationContext("prog-config.xml");
+		AdminRepository ar = ctx.getBean(AdminRepository.class);
+		AuthDetails ad = (AuthDetails)ar.fetchById(AuthDetails.class,user_id);
+		ad.setStatus(status);
+		ar.add(ad);
+		
 	}
 	
 

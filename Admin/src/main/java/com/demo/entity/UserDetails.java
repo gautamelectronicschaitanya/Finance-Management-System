@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.SecondaryTable;
 import javax.persistence.Table;
 import java.util.*;
 @Entity
@@ -22,9 +24,9 @@ public class UserDetails {
 	private String PASSWORD;
 	
 	@OneToMany(mappedBy="usd",cascade=CascadeType.ALL)
-	private Set<BankDetails> details;
+	private Set<BankDetails> details; 
 	
-	
+
 	public Set<BankDetails> getDetails() {
 		return details;
 	}
