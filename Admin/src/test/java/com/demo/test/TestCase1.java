@@ -99,5 +99,18 @@ public class TestCase1 {
 			System.out.println("false");
 		}
 	}
+	
+	@Test
+	public void UserDetailsView()
+	{
+		ApplicationContext ctx = new ClassPathXmlApplicationContext("prog-config.xml");
+		AdminRepository ar = ctx.getBean(AdminRepository.class);
+	   ArrayList<UserDetails> uds = (ArrayList<UserDetails>)ar.FectAllUserDetails();
+        for(UserDetails ud:uds)
+	    {
+	    	System.out.println(ud.getNAME());
+	    	System.out.println(ud.getEMAIL());
+	    }
+	}
 
 }

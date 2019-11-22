@@ -41,7 +41,8 @@ public class AdminRepository {
 	   String selectQuery="Select c from BankDetails c where c.usd.USERID=:uid";
 		  Query q=entityManager.createQuery(selectQuery);
 		  q.setParameter("uid",uid);
-		  List<BankDetails> bk =q.getResultList();
+		  @SuppressWarnings("unchecked")
+		List<BankDetails> bk =q.getResultList();
          return bk;
    }
    
@@ -49,12 +50,22 @@ public class AdminRepository {
   @Transactional
    public AdminDetails fetchAll()
    {
-	  AdminDetails ad;
 	   String selectQuery ="Select d from AdminDetails as d";
 	   Query q=entityManager.createQuery(selectQuery);
-	   List<AdminDetails> bk =q.getResultList();
+	   @SuppressWarnings("unchecked")
+	List<AdminDetails> bk =q.getResultList();
 	   return bk.get(0);
    }
+
+  @Transactional
+  public List<UserDetails> FectAllUserDetails()
+  {
+	  UserDetails ud;
+	  String selectQuery ="Select d from UserDetails as d";
+	  Query q = entityManager.createQuery(selectQuery);
+	 List<UserDetails> uds = q.getResultList();
+	  return uds;
+  }
   
    
 }

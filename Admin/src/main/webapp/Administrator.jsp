@@ -7,7 +7,8 @@
      <%@ page import="com.demo.entity.AdminDetails" %>
      <%@ page import="com.demo.entity.BankDetails" %>
      <%@ page import="com.demo.entity.BankDetails" %>
-     <%@ page import ="com.demo.entity.UserDetails"%>    
+     <%@ page import ="com.demo.entity.UserDetails"%>   
+    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -16,6 +17,7 @@
 </head>
 <body>
 <h1 align="center" style="color:Blue"><font><strong>User Details</strong></font></h1>
+<div style="border:solid 2px black;display:inline-block;"></div>
 <table align="center" style="color:red" cellpadding="10" cellspacing="10" border="2.2">
 <tr>
 <td><b>Name</b></td>
@@ -24,14 +26,21 @@
 <td><b>Phone Number</b></td>
 </tr>
 <tr>
-<% ApplicationContext ctx = new ClassPathXmlApplicationContext("prog-config.xml");
-   AdminRepository vr = ctx.getBean(AdminRepository.class);
-   UserDetails ud = (UserDetails) vr.fetchById(UserDetails.class,105);
+<% 
+ApplicationContext ctx = new ClassPathXmlApplicationContext("prog-config.xml");
+AdminRepository ar = ctx.getBean(AdminRepository.class);
+ArrayList<UserDetails> uds = (ArrayList<UserDetails>)ar.FectAllUserDetails();
 %>
-<td><%out.print(ud.getNAME());%></td>
-<td><%out.print(ud.getEMAIL());%></td>
-<td><%out.print(ud.getPASSWORD());%></td>
-<td><%out.print(ud.getPHONE_NO());%></td>
+<%for(UserDetails ud:uds){%>
+<tr>
+<td><%out.println(ud.getNAME());%></td>
+<td><%out.println(ud.getEMAIL());%></td>
+<td><%out.println(ud.getPASSWORD());%></td>
+<td><%out.println(ud.getPHONE_NO());%></td>
+<td><a href="UPDATE.jsp">UPDATE</a>
+</tr>
+<%} %>
+</tr>
 </table>
 </body>
 </html>
