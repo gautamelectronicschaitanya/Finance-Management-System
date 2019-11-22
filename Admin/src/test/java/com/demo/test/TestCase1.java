@@ -45,13 +45,13 @@ public class TestCase1 {
 		
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("prog-config.xml");
 		AdminRepository vr = ctx.getBean(AdminRepository.class);
-		UserDetails ud = (UserDetails) vr.fetchById(UserDetails.class,315);
+		UserDetails ud = (UserDetails) vr.fetchById(UserDetails.class,105);
 		
 	       System.out.println(ud.getNAME());
 	       System.out.println(ud.getEMAIL());
 	       System.out.println(ud.getPASSWORD());
 	       System.out.println(ud.getPHONE_NO());	 
-	       System.out.println(vr.fetchbyPk(ud.getUSERID()));
+	    //   System.out.println(vr.fetchbyPk(ud.getUSERID()));
 	}
 	@Test
 	public void addAdmin()
@@ -81,7 +81,23 @@ public class TestCase1 {
 	{
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("prog-config.xml");
 		AdminRepository ar = ctx.getBean(AdminRepository.class);
-		System.out.print(ar.fetchAll());
+		AdminDetails ad =(AdminDetails) ar.fetchAll();
+		if(ad.getAdminPassword().equals("admin@123"))
+		{
+			System.out.println("true");
+		}
+		else
+		{
+			System.out.println("false");
+		}
+		if(ad.getAdminName().equals("LTI"))
+		{
+			System.out.println("true");
+		}
+		else
+		{
+			System.out.println("false");
+		}
 	}
 
 }

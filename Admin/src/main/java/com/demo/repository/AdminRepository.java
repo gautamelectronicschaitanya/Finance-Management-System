@@ -46,16 +46,15 @@ public class AdminRepository {
    }
    
    
- // @Transactional
-//   public AdminDetails fetchAll()
-//   {
-//	  AdminDetails ad;
-//	   String selectQuery ="Select d.adminName,d.adminPassword from AdminDetails d";
-//	   Query q=entityManager.createQuery(selectQuery);
-//	  // return q.getSingleResult();
-//	   
-//	
-//   }
+  @Transactional
+   public AdminDetails fetchAll()
+   {
+	  AdminDetails ad;
+	   String selectQuery ="Select d from AdminDetails as d";
+	   Query q=entityManager.createQuery(selectQuery);
+	   List<AdminDetails> bk =q.getResultList();
+	   return bk.get(0);
+   }
   
    
 }

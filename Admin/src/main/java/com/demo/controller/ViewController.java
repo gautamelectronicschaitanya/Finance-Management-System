@@ -1,6 +1,10 @@
 package com.demo.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,14 +30,23 @@ public class ViewController {
 //		}
 //	
 	@RequestMapping(path="register.lti",method=RequestMethod.POST)
-	public String login(@RequestParam("adminName")String adname,@RequestParam("adminPassword")String adpass)
+	public String login(HttpServletRequest request)
 	//public String login(AdminDetails details)
 	{
-		if(service.LoginValidate(adname,adpass)==true)
+		String adminname=request.getParameter("adminName");
+		String adminpass=request.getParameter("adminPassword");
+		System.out.println(adminname);
+		System.out.println(adminpass);
+		boolean ans = service.LoginValidate(adminname,adminpass);
+		System.out.println(ans);
+		if(ans==true)
 		{
-			System.out.println("done!");
+	    return "Administrator.jsp";
 		}
-		return "Administrator.jsp";
+		else
+		{
+			return "Fail.jsp";
+		}
 	}
 	}
 
