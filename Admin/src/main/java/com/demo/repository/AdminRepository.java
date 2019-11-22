@@ -65,6 +65,17 @@ public class AdminRepository {
 	 List<UserDetails> uds = q.getResultList();
 	  return uds;
   }
+  
+  
+  @Transactional
+  public AuthDetails UpdateStatusByPk (int pk)
+  {
+	   String selectQuery="Select c from AuthDetails c where c.userDetails.USERID=:uid";
+		  Query q=entityManager.createQuery(selectQuery);
+		  q.setParameter("uid",pk);
+		  ArrayList<AuthDetails> ad = (ArrayList<AuthDetails>) q.getResultList();
+         return ad.get(0);
+  }
  
   
    

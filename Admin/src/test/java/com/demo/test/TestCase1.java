@@ -141,7 +141,7 @@ public class TestCase1 {
 	{
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("prog-config.xml");
 		AdminRepository ar = ctx.getBean(AdminRepository.class);
-		AuthDetails ad = (AuthDetails)ar.fetchById(AuthDetails.class,10);
+		AuthDetails ad = (AuthDetails)ar.fetchById(AuthDetails.class,101);
 		ad.setStatus("fail");
 		ar.add(ad);
 		
@@ -172,6 +172,19 @@ public class TestCase1 {
 		ud.setDetails(bankd);
 		vr.add(ud);
 		vr.add(ad);
+	}
+	
+	@Test
+	public void UpdateStatus()
+	{
+		ApplicationContext ctx = new ClassPathXmlApplicationContext("prog-config.xml");
+		AdminRepository ar = ctx.getBean(AdminRepository.class);
+		AuthDetails ad = ar.UpdateStatusByPk(109);
+		ad.setStatus("Active");
+		
+		ar.add(ad);
+		
+	
 	}
 	
 	
