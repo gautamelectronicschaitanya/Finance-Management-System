@@ -180,7 +180,7 @@ public class TestCase1 {
 		ApplicationContext ctx = new ClassPathXmlApplicationContext("prog-config.xml");
 		AdminRepository ar = ctx.getBean(AdminRepository.class);
 		AuthDetails ad = ar.UpdateStatusByPk(109);
-		ad.setStatus("Active");
+		ad.setStatus("Fail");
 		
 		ar.add(ad);
 		
