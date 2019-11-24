@@ -1,0 +1,147 @@
+PARALLEL STREAMS
+
+The Stream API enables developers to create the parallel streams that can take advantage of multi-core architectures and enhance the performance of Java code. In a parallel stream, the operations are executed in parallel and there are two ways to create a parallel stream.
+
+         1)Using the parallelStream() method on a collection
+
+         2)Using the parallel() method on a stream
+
+
+EXAMPLE:
+
+Optional<Integer> calcProd = list1.parallelStream().reduce((a,b) -> a*b));
+
+====================================================================================================================
+
+
+ Parallel Streams must be used only with stateless, non-interfering, and associative operations i.e.
+
+        1)A stateless operation is an operation in which the state of one element does not affect another element
+
+        2)A non-interfering operation is an operation in which data source is not affected
+
+        3)An associative operation is an operation in which the result is not affected by the order of operands
+
+======================================================================================================================
+
+SIGNIFICANCE OF PARALLEL STREAMS
+
+Let’s take a scenario where you have a list of employee objects and you have to count the employees whose salary is above 15000. Generally, to solve this problem you will iterate over list going through each employee and checking if employee’s salary is above 15000. This takes O(N) time since you go sequentially.
+
+Streams give us the flexibility to iterate over the list in a parallel pattern and can give the total in quick fashion. 
+Stream implementation in Java is by default sequential unless until it is explicitly mentioned in parallel. 
+When a stream executes in parallel, the Java runtime partitions the stream into multiple sub-streams. 
+Aggregate operations iterate over and process these sub-streams in parallel and then combine the results.
+The only thing to keep in mind to create parallel stream is to call the parallelStream() method on the collection else by default the sequential stream gets returned by stream() method.
+
+
+=========================================================================================================================
+Disadvantages
+
+
+        1)Since each sub-stream is a single thread running and acting on the data, it has overhead compared to the sequential stream
+
+        2)Inter-thread communication is dangerous and takes time for coordination
+
+===========================================================================================================================
+
+WHEN TO USE PARALLEL STREAMS
+
+        1)They should be used when the output of the operation is not needed to be dependent on the order of elements present in source collection (i.e. on which the stream is created)
+
+        2)Parallel Streams can be used in case of aggregate functions
+
+        3)Parallel Streams quickly iterate over the large-sized collections
+
+        4)Parallel Streams can be used if developers have performance implications with the Sequential Streams
+
+        5)If the environment is not multi-threaded, then Parallel Stream creates thread and can affect the new requests coming in
+
+
+=============================================================================================================================
+
+TOOLS USED: ECLIPSE OXYGEN,JDK 1.8 AND MAVEN
+
+STEPS:
+
+      1)FILE-> NEW-> MAVEN PROJECT
+
+      2)CREATE MAVEN PROJECT
+
+      POM.XML
+
+	<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 	http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   	 <modelVersion>4.0.0</modelVersion>
+    	<groupId>Java8ParallelStream</groupId>
+   	 <artifactId>Java8ParallelStream</artifactId>
+   	 <version>0.0.1-SNAPSHOT</version>
+    	<packaging>jar</packaging>
+	</project>
+
+
+      CREATE NEW CLASS (PARALLELSTREAMDAO)
+
+Here is an example of Parallel Streams where we have created a list of 600 employees out of which there are 300 employees whose salary is above 15000. Let’s see the simple code snippet that shows this implementation.
+
+       PROGRAM:
+
+package com.jcg.java;
+ 
+import java.util.ArrayList;
+import java.util.List;
+ 
+public class ParallelStreamDemo {
+ 
+    public static void main(String[] args) {
+ 
+        long t1, t2;
+        List<Employee> eList = new ArrayList<Employee>();
+        for(int i=0; i<100; i++) {
+            eList.add(new Employee("A", 20000));
+            eList.add(new Employee("B", 3000));
+            eList.add(new Employee("C", 15002));
+            eList.add(new Employee("D", 7856)); 
+            eList.add(new Employee("E", 200)); 
+            eList.add(new Employee("F", 50000));
+        }
+ 
+        /***** Here We Are Creating A 'Sequential Stream' & Displaying The Result *****/
+        t1 = System.currentTimeMillis();   
+        System.out.println("Sequential Stream Count?= " + eList.stream().filter(e -> e.getSalary() > 15000).count());
+ 
+        t2 = System.currentTimeMillis();
+        System.out.println("Sequential Stream Time Taken?= " + (t2-t1) + "\n");
+ 
+        /***** Here We Are Creating A 'Parallel Stream' & Displaying The Result *****/
+        t1 = System.currentTimeMillis();        
+        System.out.println("Parallel Stream Count?= " + eList.parallelStream().filter(e -> e.getSalary() > 15000).count());
+ 
+        t2 = System.currentTimeMillis();
+        System.out.println("Parallel Stream Time Taken?= " + (t2-t1));
+    }
+}
+
+
+      RUN THE PROGRAM
+
+
+The application shows the following logs as output where creating a Sequential Stream and filtering elements took 178 ms, whereas Parallel Stream only took 15 ms.
+
+# Logs for 'SEQUENTIAL STREAM' #
+=============================
+Sequential Stream Count?= 300
+Sequential Stream Time Taken?= 178
+ 
+# Logs for 'PARALLEL STREAM' #
+===========================
+Parallel Stream Count?= 300
+Parallel Stream Time Taken?= 15 
+
+
+
+
+===================================================================================================================================
+
+
+
+

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script>
+	$(function() {
+
+		$("#frm").submit(function(evt) {
+			evt.preventDefault();
+			alert("ok");
+			var formData = new FormData();
+			formData.append("name", $("#name").val());
+			formData.append("pic", $("#pic").get(0).files[0]);
+
+			$.ajax({
+				url : '/register',
+				method : 'POST',
+				data : formData,
+				processData : false,
+				contentType : false,
+				success : function(response) {
+					alert(response);
+				}
+			})
+		})
+	})
+</script>
+</head>
+<body>
+	<form id="frm">
+		Enter name : <input type="text" id="name" /> <br /> 
+		Select pic : <input type="file" id="pic" /> <br />
+		<button type="submit">Register</button>
+	</form>
+</body>
+</html>
