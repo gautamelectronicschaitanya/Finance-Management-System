@@ -4,11 +4,10 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Conformation</title>
 </head>
 <body>
-<h1>hello Customer</h1>
-<h2>laptop.jpg</h2>
-<a href="buy">Buy Now</a>
+<p>Congratulatinons</p>
+<a href="dashboard">dashboard</a>
 </body>
 </html>
